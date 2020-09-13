@@ -1,0 +1,61 @@
+﻿<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:KartURL.ViewModels;assembly=KartURL"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="KartURL.Views.MainWindow"
+        Icon="/Assets/avalonia-logo.ico"
+        MaxWidth="600" MinWidth="600"
+        MaxHeight="300" MinHeight="300">
+  <Window.Background>
+    <ImageBrush Source="/Assets/background.png"/>
+  </Window.Background>
+  
+  <Panel MaxWidth="600" MinWidth="600"
+          MaxHeight="300" MinHeight="300">
+    <Grid ShowGridLines="False" Margin="15" Height="90" VerticalAlignment="Top"
+          ColumnDefinitions="140,330,80" RowDefinitions="Auto,Auto,Auto">
+      <TextBlock Text="Kart executable location?" TextAlignment="Right"
+                 Grid.Column="0" Grid.Row="0" Margin="10"
+                 Foreground="White"/>
+      <TextBox IsReadOnly="True" Text="{Binding KartExecutablePath}"
+               Grid.Column="1" Grid.Row="0" Margin="5"/>
+      <Button Content="Browse..." Command="{Binding Browse}"
+              Grid.Column="2" Grid.Row="0" Margin="5"/>
+      <TextBlock Text="Command line arguments" TextAlignment="Right"
+                 Grid.Column="0" Grid.Row="1" Margin="10"
+                 Foreground="White"/>
+      <TextBox IsReadOnly="True" Text="{Binding CommandLineArguments}"
+               Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" Margin="5"/>
+      <TextBlock Text="Override target platform?" TextAlignment="Right"
+                 Grid.Column="0" Grid.Row="2" Margin="10"
+                 Foreground="WhiteSmoke"/>
+      <StackPanel Orientation="Horizontal"
+                  Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2">
+        <CheckBox Name="override" Margin="5" Background="White"/>
+        <ComboBox Items="{Binding Platforms}" Width="75" SelectedItem="{Binding Platform}" 
+                  IsEnabled="{Binding ElementName=override, Path=IsChecked}"
+                  Margin="5" Background="White"/>
+      </StackPanel>
+    </Grid>
+
+    <StackPanel Height="40" Margin="50" Width="100"
+                Orientation="Horizontal" Spacing="20"
+                VerticalAlignment="Bottom" HorizontalAlignment="Left">
+      <Button Content="Generate" Width="100"/>
+      <TextBlock Text="{Binding ResultMessage}" VerticalAlignment="Center"
+                 Foreground="White"/>
+    </StackPanel>
+
+    <StackPanel Height="40" Margin="50" Width="100"
+                Orientation="Horizontal" Spacing="7"
+                VerticalAlignment="Bottom" HorizontalAlignment="Right">
+      <TextBlock Text="Mute audio?" VerticalAlignment="Center"
+                Foreground="White"/>
+      <CheckBox Command="{Binding ToggleMute}" Background="White"/>
+    </StackPanel>
+
+  </Panel>
+
+</Window>
